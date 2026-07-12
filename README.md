@@ -1,6 +1,6 @@
 # Suvir Potdar Portfolio
 
-Personal portfolio for [suvirp.me](https://suvirp.me), built with React,
+Personal portfolio for [suvir.net](https://suvir.net), built with React,
 TypeScript, vinext, and custom CSS.
 
 ## Local development
