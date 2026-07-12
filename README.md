@@ -1,6 +1,6 @@
 # Suvir Potdar Portfolio
 
-Personal portfolio for [suvirp.me](https://suvirp.me), built with React,
+Personal portfolio for [suvir.net](https://suvir.net), built with React,
 TypeScript, vinext, and custom CSS.
 
 ## Local development
@@ -47,7 +47,7 @@ Pushes to `main` deploy that artifact through `.github/workflows/pages.yml`.
 project association is stored in `.openai/hosting.json`; do not replace its
 `project_id` when saving a new version of the existing site.
 
-The public production domain is `suvirp.me`. GitHub Pages must remain configured
+The public production domain is `suvir.net`. GitHub Pages must remain configured
 to use that custom domain and its GitHub Actions publishing source.
 
 ## Content safety

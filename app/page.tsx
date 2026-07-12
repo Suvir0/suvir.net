@@ -5,7 +5,7 @@ const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: profile.name,
-  url: "https://suvirp.me",
+  url: "https://suvir.net",
   sameAs: [profile.github, profile.linkedin],
   homeLocation: { "@type": "Place", name: profile.location },
   affiliation: { "@type": "EducationalOrganization", name: "South Brunswick High School" },

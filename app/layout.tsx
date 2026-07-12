@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://suvirp.me"),
+  metadataBase: new URL("https://suvir.net"),
   title: {
     default: "Suvir Potdar | Software, Infrastructure & AI",
     template: "%s | Suvir Potdar",
@@ -36,12 +36,12 @@ export const metadata: Metadata = {
     "New Jersey",
     "Class of 2027",
   ],
-  authors: [{ name: "Suvir Potdar", url: "https://suvirp.me" }],
+  authors: [{ name: "Suvir Potdar", url: "https://suvir.net" }],
   creator: "Suvir Potdar",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://suvirp.me",
+    url: "https://suvir.net",
     siteName: "Suvir Potdar",
     title: "Suvir Potdar | Software, Infrastructure & AI",
     description:
