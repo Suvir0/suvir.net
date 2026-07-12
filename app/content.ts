@@ -12,6 +12,7 @@ export type Project = {
   technologies: string[];
   href?: string;
   hrefLabel?: string;
+  sourceHref?: string;
   challenge: string;
   approach: string;
   decisions: string[];
@@ -61,6 +62,7 @@ export const projects: Project[] = [
     technologies: ["React", "TypeScript", "HTML", "CSS"],
     href: "https://gts.suvir.net",
     hrefLabel: "Open live application",
+    sourceHref: "https://github.com/Suvir0/GuessThatStat",
     challenge:
       "Create an engaging statistics review experience that keeps the reasoning behind each answer visible.",
     approach:

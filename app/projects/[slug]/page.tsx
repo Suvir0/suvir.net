@@ -32,10 +32,19 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <p className="eyebrow">{project.index} / {project.category}</p>
           <h1>{project.title}</h1>
           <p className="case-summary">{project.summary}</p>
-          {project.href && (
-            <a className="primary-action" href={project.href} target="_blank" rel="noopener noreferrer">
-              {project.hrefLabel} <span aria-hidden="true">↗</span>
-            </a>
+          {(project.href || project.sourceHref) && (
+            <div className="hero-actions" aria-label={`${project.title} links`}>
+              {project.href && (
+                <a className="primary-action" href={project.href} target="_blank" rel="noopener noreferrer">
+                  {project.hrefLabel} <span aria-hidden="true">↗</span>
+                </a>
+              )}
+              {project.sourceHref && (
+                <a className="text-action" href={project.sourceHref} target="_blank" rel="noopener noreferrer">
+                  View source <span aria-hidden="true">↗</span>
+                </a>
+              )}
+            </div>
           )}
         </div>
         <dl className="case-meta">
