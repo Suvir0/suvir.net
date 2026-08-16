@@ -148,6 +148,44 @@ export const projects: Project[] = [
       "Preflight checks, disk guards, and deduplication became essential parts of the workflow.",
     ],
   },
+  {
+    slug: "roon-rich-presence",
+    index: "04",
+    title: "Roon Rich Presence",
+    category: "Desktop integration · Local-first software",
+    status: "Maintained",
+    year: "2026",
+    summary:
+      "A privacy-first desktop companion that publishes Roon playback to Discord Rich Presence without a hosted service or user account.",
+    description:
+      "Roon Rich Presence connects two desktop ecosystems through a small local application. It discovers Roon Servers, follows a selected or active playback zone, maps user-controlled metadata into Discord activity, and keeps authorization, settings, and diagnostics on the user’s device.",
+    technologies: [
+      "TypeScript",
+      "React",
+      "Electron",
+      "C++",
+      "Roon API",
+      "Discord Social SDK",
+      "GitHub Actions",
+    ],
+    href: "https://rrp.suvir.net",
+    hrefLabel: "Open product site",
+    sourceHref: "https://github.com/Suvir0/roon-rich-presence",
+    challenge:
+      "Connect live playback state to Discord reliably while respecting local-network boundaries, proprietary SDK constraints, desktop security, and platform-specific packaging requirements.",
+    approach:
+      "I separated Roon discovery and playback mapping into a tested TypeScript core, kept privileged Electron behavior behind a narrow preload contract, and isolated Discord SDK access in a native bridge with a stub backend for normal development and CI.",
+    decisions: [
+      "Keep the integration local-first with no RRP account, hosted control plane, telemetry, or uploaded listening history.",
+      "Make optional artwork matching explicit and off by default, with clear disclosure of the metadata sent to public lookup services.",
+      "Build release automation around signed artifacts, checksums, SBOMs, provenance, protected environments, and platform-specific validation.",
+    ],
+    lessons: [
+      "Desktop integrations need security boundaries and failure handling at every interface, not only in application logic.",
+      "A proprietary runtime dependency can remain isolated behind a small protocol while the rest of the system stays open and testable.",
+      "Release engineering, signing, updater behavior, privacy documentation, and diagnostics are core product work for a desktop utility.",
+    ],
+  },
 ];
 
 export const skillGroups = [
