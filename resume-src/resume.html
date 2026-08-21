@@ -1,0 +1,165 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=block" rel="stylesheet">
+<style>
+  @page { size: letter; margin: 0.4in 0.5in 0.3in; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Bricolage Grotesque', system-ui, sans-serif;
+    font-optical-sizing:auto;
+    font-size:9.1pt; line-height:1.22; color:#1a1a1a;
+    -webkit-font-smoothing:antialiased;
+  }
+  a { color:#14329e; text-decoration:none; }
+
+  h1 { font-size:21pt; font-weight:700; letter-spacing:-0.025em; text-align:center; line-height:1.1; }
+  .contact { text-align:center; font-size:9pt; color:#333; margin-top:4px; }
+  .contact span { color:#aaa; margin:0 5px; }
+
+  h2 {
+    font-size:8.2pt; font-weight:700; letter-spacing:0.13em; text-transform:uppercase;
+    color:#14329e; margin-top:6px; padding-bottom:1.5px; border-bottom:1px solid #14329e;
+  }
+  section:first-of-type h2 { margin-top:9px; }
+
+  p.summary { margin-top:6px; }
+
+  .entry { margin-top:4.5px; break-inside:avoid; }
+  .entry-head { display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .entry-title { font-weight:700; font-size:10.2pt; }
+  .entry-when { font-size:8.8pt; color:#555; white-space:nowrap; }
+  .entry-sub { font-size:9pt; color:#14329e; font-style:italic; margin-top:0px; }
+
+  ul { list-style:none; margin-top:2.5px; }
+  li { padding-left:11px; position:relative; margin-top:1.5px; }
+  li::before { content:""; position:absolute; left:2px; top:0.5em; width:3px; height:3px; background:#666; border-radius:50%; }
+
+  .stack { font-size:8.8pt; color:#555; margin-top:2px; }
+  .stack b { color:#1a1a1a; font-weight:600; }
+
+  .course-grid { display:grid; grid-template-columns:auto 1fr; gap:2px 12px; margin-top:5px; font-size:9.3pt; }
+  .course-grid dt { font-weight:600; white-space:nowrap; }
+  .course-grid dd { color:#2b2b2b; }
+
+  .skills { display:grid; grid-template-columns:auto 1fr; gap:2px 12px; margin-top:5px; font-size:9.3pt; }
+  .skills dt { font-weight:600; white-space:nowrap; }
+  .skills dd { color:#2b2b2b; }
+</style></head>
+<body>
+
+<h1>Suvir Potdar</h1>
+<p class="contact">
+  South Brunswick, NJ <span>|</span>
+  <a href="mailto:hello@suvir.net">hello@suvir.net</a> <span>|</span>
+  <a href="https://suvir.net">suvir.net</a> <span>|</span>
+  <a href="https://github.com/Suvir0">github.com/Suvir0</a> <span>|</span>
+  <a href="https://www.linkedin.com/in/suvir-p/">linkedin.com/in/suvir-p</a>
+</p>
+
+<section>
+  <h2>Summary</h2>
+  <p class="summary">High school senior who writes software and runs the infrastructure it lands on. Three years maintaining a self-hosted server rebuilt across Proxmox, Unraid, and Ubuntu, alongside four shipped projects spanning a Python extraction pipeline, a desktop app with a C++ native bridge, and two study tools used by classmates. Seeking internships and part-time engineering work.</p>
+</section>
+
+<section>
+  <h2>Education</h2>
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">South Brunswick High School</span>
+      <span class="entry-when">Sep 2023 &ndash; Jun 2027</span>
+    </div>
+    <p class="entry-sub">South Brunswick, NJ &middot; Grade 12 &middot; Class of 2027 &middot; Eleven AP courses by graduation</p>
+  </div>
+</section>
+
+<section>
+  <h2>Relevant Coursework</h2>
+  <dl class="course-grid">
+    <dt>In progress</dt>
+    <dd>AP Cybersecurity &middot; College Computer Applications &amp; Systems &middot; AP Macroeconomics &middot; AP Microeconomics &middot; AP Comparative Government &amp; Politics &middot; AP English IV: Literature &amp; Composition</dd>
+    <dt>Completed</dt>
+    <dd>AP Computer Science A &middot; AP Calculus BC &middot; AP Statistics &middot; AP Physics C: Mechanics &middot; AP Physics C: Electricity &amp; Magnetism &middot; AP English Language &amp; Composition</dd>
+  </dl>
+</section>
+
+<section>
+  <h2>Projects &amp; Technical Work</h2>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">SAT Practice Platform</span>
+      <span class="entry-when">2026</span>
+    </div>
+    <p class="entry-sub">practice.suvir.net &middot; Web application, private</p>
+    <ul>
+      <li>Study application over the 3,714-question official SAT question bank, with a rebuild of the Bluebook testing interface so practice matches real test conditions.</li>
+      <li>Wrote a Python extractor for source PDFs that set equations as vector art rather than text, cropping each one and reinserting it positioned to its question.</li>
+      <li>Backend on two Cloudflare Workers with D1; frontend in vanilla JavaScript, no build step.</li>
+    </ul>
+    <p class="stack"><b>Stack:</b> Python, JavaScript, Cloudflare Workers, D1</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">Roon Rich Presence</span>
+      <span class="entry-when">2026</span>
+    </div>
+    <p class="entry-sub">rrp.suvir.net &middot; Desktop application, open source</p>
+    <ul>
+      <li>Local-first desktop app publishing Roon playback to Discord, with no account, hosted service, or listening history leaving the machine.</li>
+      <li>Isolated Discord's proprietary native SDK behind a C++ bridge with a stub backend for CI, keeping Roon discovery and playback mapping in a tested TypeScript core.</li>
+      <li>Automated releases producing signed builds with checksums, SBOMs, and provenance.</li>
+    </ul>
+    <p class="stack"><b>Stack:</b> TypeScript, React, Electron, C++, GitHub Actions</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">Ripuz</span>
+      <span class="entry-when">2026</span>
+    </div>
+    <p class="entry-sub">Automation pipeline, open source</p>
+    <ul>
+      <li>Containerized workflow consolidating command-line tools with inconsistent output into one repeatable pipeline: intake, durable job queue, metadata processing, verification, cleanup.</li>
+      <li>Made long jobs safe to resume through idempotency and deduplication, with preflight checks and disk guards running before a batch rather than after a failure.</li>
+    </ul>
+    <p class="stack"><b>Stack:</b> Python, FastAPI, Docker, SQLite</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">Home Server &amp; Self-Hosted Infrastructure</span>
+      <span class="entry-when">2023 &ndash; Present</span>
+    </div>
+    <p class="entry-sub">Ubuntu &middot; Docker &middot; Cloudflare</p>
+    <ul>
+      <li>Rebuilt five times across Proxmox, Unraid, and Ubuntu, each trading ease of maintenance against control; currently Ubuntu running containerized services under Docker.</li>
+      <li>Configured reverse proxies, TLS, DNS, and Cloudflare Tunnels for external access without exposing the host; Authentik for SSO on private services; Grafana for health and alerting.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">GuessThatStat</span>
+      <span class="entry-when">2025</span>
+    </div>
+    <p class="entry-sub">gts.suvir.net &middot; Study tool, open source</p>
+    <ul>
+      <li>AP Statistics practice app built for a class of peers, and the first project of mine used by people without me in the room. Rebuilt the feedback loop after peer testing surfaced interaction problems invisible while building alone.</li>
+    </ul>
+    <p class="stack"><b>Stack:</b> React, TypeScript</p>
+  </div>
+</section>
+
+<section>
+  <h2>Technical Skills</h2>
+  <dl class="skills">
+    <dt>Languages</dt><dd>Python, TypeScript, JavaScript, C++, Java, SQL, HTML/CSS, Bash</dd>
+    <dt>Infrastructure</dt><dd>Linux, Docker, Proxmox, Unraid, virtualization, reverse proxies, DNS, TLS, private networking</dd>
+    <dt>Cloud &amp; CI</dt><dd>Cloudflare Workers, D1, Tunnels, GitHub Actions, GitHub Pages</dd>
+    <dt>Security &amp; Identity</dt><dd>Authentik, OAuth 2.0, OpenID Connect, SSO, signed releases, SBOM and provenance</dd>
+    <dt>Operations</dt><dd>Grafana, dashboards, alerting, log analysis, backup and restore, PC building</dd>
+  </dl>
+</section>
+
+</body></html>

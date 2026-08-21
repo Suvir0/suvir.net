@@ -39,8 +39,9 @@ route files. Every visual token and responsive rule is in `app/globals.css`.
 events API for the "Last push" row and falls back to a plain profile link when
 that request fails or is rate limited.
 
-To replace the résumé, overwrite `public/suvir-potdar-resume.pdf` under the same
-filename, then check `/resume`.
+The résumé PDF is generated from `resume-src/resume.html`; see the README in
+that directory. Edit the HTML and regenerate rather than replacing the PDF, and
+keep the filename `public/suvir-potdar-resume.pdf`.
 
 ## Publishing
 
