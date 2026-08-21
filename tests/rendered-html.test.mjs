@@ -46,7 +46,24 @@ test("the previous generic site is gone", async () => {
 test("the deployable artifact has what Pages needs", async () => {
   assert.equal((await readFile(new URL("CNAME", out), "utf8")).trim(), "suvir.net");
   await access(new URL("suvir-potdar-resume.pdf", out));
+
+  for (const asset of ["favicon.ico", "icon.png", "apple-icon.png", "opengraph-image.png"]) {
+    await access(new URL(asset, out));
+  }
+
+  // Kept so links shared before the rename still resolve to an image.
   await access(new URL("og.png", out));
+});
+
+test("social and tab icons are wired up", async () => {
+  const html = await page("index.html");
+
+  assert.match(html, /rel="icon"[^>]*favicon\.ico/);
+  assert.match(html, /rel="apple-touch-icon"/);
+  // Hashed URL, so changing the image busts every social cache.
+  assert.match(html, /og:image"[^>]*opengraph-image\.png\?/);
+  assert.match(html, /og:image:alt"[^>]*Suvir Potdar, New Jersey/);
+  assert.doesNotMatch(html, /Software, Infrastructure/);
 });
 
 // Temporary: added 2026-08-21 with the redirect stubs, delete both after 2026-09-21.

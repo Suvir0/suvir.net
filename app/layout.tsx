@@ -30,13 +30,11 @@ export const metadata: Metadata = {
     siteName: profile.name,
     title: "Suvir Potdar",
     description,
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "suvir.net" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Suvir Potdar",
     description,
-    images: ["/og.png"],
   },
 };
 
