@@ -50,6 +50,15 @@ filename, then check `/resume`.
 The custom domain comes from `public/CNAME`, which the export copies to
 `out/CNAME`. GitHub Pages must stay on the GitHub Actions publishing source.
 
+## Temporary redirects
+
+`public/about/`, `public/engineering/`, and `public/projects/**` are meta-refresh
+stubs for URLs that existed before the 2026 rewrite. GitHub Pages cannot issue a
+real 302, so each one is a static page that redirects to its closest replacement.
+
+**Added 2026-08-21. Delete after 2026-09-21**, along with the matching test at the
+bottom of `tests/rendered-html.test.mjs`.
+
 ## Content rules
 
 No private hostnames, IP addresses, admin URLs, credentials, live

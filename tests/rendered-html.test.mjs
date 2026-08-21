@@ -48,3 +48,24 @@ test("the deployable artifact has what Pages needs", async () => {
   await access(new URL("suvir-potdar-resume.pdf", out));
   await access(new URL("og.png", out));
 });
+
+// Temporary: added 2026-08-21 with the redirect stubs, delete both after 2026-09-21.
+test("old URLs still redirect to their closest replacement", async () => {
+  const moved = [
+    ["about/index.html", "/"],
+    ["engineering/index.html", "/"],
+    ["projects/index.html", "/work/"],
+    ["projects/guess-that-stat/index.html", "/work/"],
+    ["projects/infrastructure-lab/index.html", "/"],
+    ["projects/ripuz/index.html", "/work/"],
+    ["projects/roon-rich-presence/index.html", "/work/"],
+  ];
+
+  for (const [path, target] of moved) {
+    const html = await page(path);
+    assert.match(html, new RegExp(`refresh" content="0; url=${target}"`), path);
+    assert.match(html, new RegExp(`canonical" href="https://suvir\\.net${target}"`), path);
+    assert.match(html, /location\.replace/, path);
+    assert.match(html, /Remove after 2026-09-21/, path);
+  }
+});
