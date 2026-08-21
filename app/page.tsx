@@ -1,3 +1,5 @@
+import Image from "next/image";
+import portrait from "./suvir-potdar.jpg";
 import { changelog, mistakes, profile, rebuilds, rightNow } from "./content";
 import { LastPush } from "./last-push";
 
@@ -44,10 +46,22 @@ export default function Home() {
               near real infrastructure.
             </p>
           </div>
-          <p className="note">
-            I wrote this. The version of this page before it had a grid of eight boxes
-            labeled things like “Operating range.” It didn’t say anything.
-          </p>
+          <div className="intro-aside">
+            <figure className="portrait">
+              <Image
+                src={portrait}
+                alt="Suvir Potdar holding a New Jersey licence plate that reads SENIOR"
+                sizes="210px"
+                placeholder="blur"
+                priority
+              />
+              <figcaption>Senior photo, 2026.</figcaption>
+            </figure>
+            <p className="note">
+              I wrote this. The version of this page before it had a grid of eight boxes
+              labeled things like “Operating range.” It didn’t say anything.
+            </p>
+          </div>
         </div>
 
         <div className="rule" />

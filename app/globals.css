@@ -169,6 +169,41 @@ main {
   text-align: right;
 }
 
+.intro-aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 18px;
+}
+
+.intro-aside .note {
+  margin: 0;
+}
+
+.portrait {
+  margin: 0;
+  width: 100%;
+  max-width: var(--note-col);
+}
+
+.portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  padding: 7px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+
+.portrait figcaption {
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.4;
+  text-align: right;
+}
+
 .rule {
   height: 1px;
   margin: clamp(52px, 6vw, 76px) 0 0;
@@ -420,6 +455,19 @@ dl {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+
+  .intro-aside {
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .portrait {
+    max-width: 176px;
+  }
+
+  .portrait figcaption {
+    text-align: left;
   }
 }
 
