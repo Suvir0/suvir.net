@@ -1,5 +1,4 @@
-import Image from "next/image";
-import portrait from "./suvir-potdar.jpg";
+import { Portrait } from "./portrait";
 import { changelog, mistakes, profile, rebuilds, rightNow } from "./content";
 import { LastPush } from "./last-push";
 
@@ -47,16 +46,7 @@ export default function Home() {
             </p>
           </div>
           <div className="intro-aside">
-            <figure className="portrait">
-              <Image
-                src={portrait}
-                alt="Suvir Potdar holding a New Jersey licence plate that reads SENIOR"
-                sizes="210px"
-                placeholder="blur"
-                priority
-              />
-              <figcaption>Senior photo, 2026.</figcaption>
-            </figure>
+            <Portrait />
           </div>
         </div>
 
