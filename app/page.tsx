@@ -57,9 +57,6 @@ export default function Home() {
               />
               <figcaption>Senior photo, 2026.</figcaption>
             </figure>
-            <p className="note">
-              
-            </p>
           </div>
         </div>
 
