@@ -2,76 +2,40 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { profile } from "./content";
 
 const navigation = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/engineering", label: "Engineering" },
-  { href: "/resume", label: "Résumé" },
+  { href: "/", label: "notes" },
+  { href: "/work", label: "work" },
+  { href: "/resume", label: "résumé" },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
 
   function isActive(href: string) {
-    return href === "/" ? pathname === "/" : pathname.startsWith(href);
-  }
-
-  function toggleTheme() {
-    const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
-    document.documentElement.dataset.theme = next;
-    localStorage.setItem("suvir-theme", next);
+    const path = pathname.replace(/\/+$/, "") || "/";
+    return href === "/" ? path === "/" : path.startsWith(href);
   }
 
   return (
-    <header className="site-header">
-      <div className="header-inner">
-        <Link className="brand" href="/" aria-label="Suvir Potdar, home">
-          <span className="brand-mark" aria-hidden="true">SP</span>
-          <span>Suvir Potdar</span>
-        </Link>
-
-        <nav className="desktop-nav" aria-label="Primary navigation">
-          {navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              aria-current={isActive(item.href) ? "page" : undefined}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="header-actions">
-          <button
-            className="theme-toggle"
-            type="button"
-            onClick={toggleTheme}
-            aria-label="Toggle color theme"
-            title="Toggle color theme"
+    <header className="topbar">
+      <p className="topbar-name">
+        <Link href="/">{profile.name}</Link>
+        <span className="topbar-place">, {profile.location}</span>
+      </p>
+      <nav aria-label="Primary">
+        {navigation.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            aria-current={isActive(item.href) ? "page" : undefined}
           >
-            <span aria-hidden="true">◐</span>
-            <span className="theme-label">Theme</span>
-          </button>
-
-          <details className="mobile-menu">
-            <summary aria-label="Open navigation">Menu</summary>
-            <nav aria-label="Mobile navigation">
-              {navigation.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={isActive(item.href) ? "page" : undefined}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </details>
-        </div>
-      </div>
+            {item.label}
+          </Link>
+        ))}
+        <a href={`mailto:${profile.email}`}>email</a>
+      </nav>
     </header>
   );
 }

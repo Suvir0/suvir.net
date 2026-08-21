@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { profile, projects } from "./content";
+import { changelog, mistakes, profile, rebuilds, rightNow } from "./content";
+import { LastPush } from "./last-push";
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -8,104 +8,132 @@ const personSchema = {
   url: "https://suvir.net",
   sameAs: [profile.github, profile.linkedin],
   homeLocation: { "@type": "Place", name: profile.location },
-  affiliation: { "@type": "EducationalOrganization", name: "South Brunswick High School" },
-  knowsAbout: ["Software engineering", "Infrastructure", "Linux", "Cybersecurity", "Artificial intelligence", "Networking"],
+  affiliation: {
+    "@type": "EducationalOrganization",
+    name: "South Brunswick High School",
+  },
+  knowsAbout: ["Software engineering", "Linux", "Docker", "Networking", "Python", "TypeScript"],
 };
-
-function Arrow() {
-  return <span aria-hidden="true">↗</span>;
-}
 
 export default function Home() {
   return (
     <>
       <main id="main-content">
-        <section className="hero home-hero section-shell" aria-labelledby="hero-title">
-          <div className="hero-copy">
-            <p className="eyebrow">Student engineer · Class of 2027 · New Jersey</p>
-            <h1 id="hero-title">I build software, deploy it, and keep it running.</h1>
-            <p className="hero-intro">
-              I’m Suvir Potdar, a high school student working across software,
-              infrastructure, cybersecurity, and AI. My work covers application
-              logic, deployment, identity, networking, and operation.
+        <div className="row intro">
+          <div>
+            <p className="lede">
+              I’m Suvir. I’m seventeen years old, I go to South Brunswick High School,
+              and I can’t decide on an operating system.
             </p>
-            <div className="hero-actions" aria-label="Primary actions">
-              <Link className="primary-action" href="/projects">Explore projects <Arrow /></Link>
-              <Link className="text-action" href="/about">About me <Arrow /></Link>
-            </div>
-          </div>
-
-          <div className="hero-system home-system" aria-label="A conceptual map of Suvir's engineering interests">
-            <div className="system-heading"><span>Operating range</span><span>01-08</span></div>
-            <div className="system-map">
-              {["Applications", "AI workflows", "Linux", "Containers", "Identity", "Networking", "Monitoring", "Cloud"].map((label, index) => (
-                <div className="system-node" key={label}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{label}</strong>
-                </div>
-              ))}
-            </div>
-            <p className="availability">
-              <span className="status-dot" aria-hidden="true" />
-              {profile.availability.label}
+            <p className="body-text">
+              Even though most of this page is about my server, it doesn’t capture my
+              whole range of abilities. The reason I decided to start with a hook like
+              that is because it’s by far my proudest project yet.
+            </p>
+            <p className="body-text">
+              The rest of this website is code. A study app for my AP Statistics class
+              that people really used, a macOS app that allows people to show off what
+              they’re listening to on Discord, an easy downloader for music just because
+              the ones that existed annoyed me, and finally a project for my friends to
+              use the SAT question bank just because downloading PDFs for each topic was
+              inconvenient.
+            </p>
+            <p className="body-text">
+              I’m graduating in June of 2027. I’m always looking for more work. I’m open
+              to internships and part-time positions. I just want people who will let me
+              near real infrastructure.
             </p>
           </div>
-        </section>
+          <p className="note">
+            I wrote this. The version of this page before it had a grid of eight boxes
+            labeled things like “Operating range.” It didn’t say anything.
+          </p>
+        </div>
 
-        <section className="section-shell home-section" aria-labelledby="selected-work-title">
-          <div className="compact-section-head">
-            <div><span>01</span><p>Selected work</p></div>
-            <h2 id="selected-work-title">Selected projects with clear technical depth.</h2>
-            <Link className="text-action" href="/projects">View all projects <Arrow /></Link>
-          </div>
-          <div className="compact-project-grid">
-            {projects.map((project) => (
-              <article key={project.slug}>
-                <div className="compact-project-top">
-                  <span>{project.index}</span>
-                  <span>{project.status}</span>
-                </div>
-                <p className="project-meta">{project.category} · {project.year}</p>
-                <h3><Link href={`/projects/${project.slug}`}>{project.title}</Link></h3>
-                <p>{project.summary}</p>
-                <div className="compact-project-bottom">
-                  <span>{project.technologies.slice(0, 3).join(" · ")}</span>
-                  <Link href={`/projects/${project.slug}`} aria-label={`Read ${project.title} case study`}>↗</Link>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
+        <div className="rule" />
 
-        <section className="section-shell home-section home-engineering" aria-labelledby="engineering-proof-title">
-          <div className="compact-section-head">
-            <div><span>02</span><p>Engineering</p></div>
-            <h2 id="engineering-proof-title">I work across development, deployment, security, and operations.</h2>
-            <Link className="text-action" href="/engineering">Engineering practice <Arrow /></Link>
-          </div>
-          <div className="engineering-proof-grid">
-            <div className="proof-pipeline" aria-label="Simplified engineering workflow">
-              {["Build", "Deploy", "Secure", "Operate"].map((item, index) => (
-                <div key={item}><span>0{index + 1}</span><strong>{item}</strong></div>
-              ))}
-            </div>
-            <div className="proof-copy">
-              <p>
-                Operating my own infrastructure has made networking, identity,
-                observability, recovery, and documentation part of how I plan
-                software from the beginning.
+        <section aria-labelledby="rebuilds-title">
+          <h2 id="rebuilds-title">
+            Here’s the server, rebuild by rebuild. Five rebuilds, three operating
+            systems, one gaming PC.
+          </h2>
+
+          {rebuilds.map((rebuild) => (
+            <div className="row rebuild" key={rebuild.os}>
+              <p className="body-text">
+                <span className="lead-in">{rebuild.os}.</span> {rebuild.body}
               </p>
-              <dl>
-                <div><dt>Environment</dt><dd>Linux · Containers · Cloud</dd></div>
-                <div><dt>Access</dt><dd>Private networks · OAuth / OIDC</dd></div>
-                <div><dt>Feedback</dt><dd>Metrics · Logs · Alerts</dd></div>
-              </dl>
+              <p className="note">{rebuild.note}</p>
             </div>
+          ))}
+
+          <div className="rebuild-close">
+            <p className="body-text">
+              I didn’t come out of these experiences mastering Linux, exactly. I came out
+              knowing that getting a service running was only a third of the work. After
+              that, it has to be reachable, logged into, backed up, watched, and easy
+              enough that I can fix it at 11 at night or restore from a backup when it
+              stops working. Starting from scratch five times wasn’t the best way to
+              learn that, looking back.
+            </p>
           </div>
+        </section>
+
+        <div className="rule" />
+
+        <section aria-labelledby="mistakes-title">
+          <h2 id="mistakes-title">
+            What I got wrong. Three things I’d rather say myself than have you find out.
+          </h2>
+          <div className="row mistakes">
+            <div>
+              {mistakes.map((mistake) => (
+                <p className="body-text" key={mistake.lead}>
+                  <span className="lead-in">{mistake.lead}</span> {mistake.body}
+                </p>
+              ))}
+            </div>
+            <p className="note">A list of only wins isn’t believable.</p>
+          </div>
+        </section>
+
+        <div className="rule" />
+
+        <section aria-labelledby="now-title">
+          <h2 id="now-title">Right now.</h2>
+          <dl>
+            <div className="dl-row">
+              <dt>Last push</dt>
+              <dd><LastPush /></dd>
+            </div>
+            {rightNow.map((fact) => (
+              <div className="dl-row" key={fact.term}>
+                <dt>{fact.term}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))}
+            <div className="dl-row">
+              <dt>Open to</dt>
+              <dd>{profile.openTo}</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section className="changelog" aria-labelledby="changelog-title">
+          <h2 id="changelog-title">Changes to this page.</h2>
+          {changelog.map((change) => (
+            <div className="change-row" key={change.text}>
+              <span className="change-date">{change.date}</span>
+              <span className="change-text">{change.text}</span>
+            </div>
+          ))}
         </section>
       </main>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
     </>
   );
 }

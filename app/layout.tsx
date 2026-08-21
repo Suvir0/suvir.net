@@ -1,65 +1,41 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
+import { profile } from "./content";
 import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const description =
+  "Suvir Potdar is a high school student in New Jersey who writes software and runs the machines it ends up on. Notes on the home server, four projects, and a résumé.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://suvir.net"),
   title: {
-    default: "Suvir Potdar | Software, Infrastructure & AI",
-    template: "%s | Suvir Potdar",
+    default: "Suvir Potdar",
+    template: "%s — Suvir Potdar",
   },
-  description:
-    "Portfolio of Suvir Potdar, a New Jersey student developer building software, self-hosted infrastructure, automation, and AI-assisted engineering workflows.",
-  keywords: [
-    "Suvir Potdar",
-    "student developer",
-    "software engineering",
-    "cybersecurity",
-    "Python",
-    "TypeScript",
-    "Linux",
-    "Docker",
-    "self-hosted infrastructure",
-    "artificial intelligence",
-    "New Jersey",
-    "Class of 2027",
-  ],
-  authors: [{ name: "Suvir Potdar", url: "https://suvir.net" }],
-  creator: "Suvir Potdar",
+  description,
+  authors: [{ name: profile.name, url: "https://suvir.net" }],
+  creator: profile.name,
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://suvir.net",
-    siteName: "Suvir Potdar",
-    title: "Suvir Potdar | Software, Infrastructure & AI",
-    description:
-      "Student engineer building practical software, infrastructure, automation, and AI-assisted workflows.",
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: "Suvir Potdar, Software, Infrastructure, and AI",
-      },
-    ],
+    siteName: profile.name,
+    title: "Suvir Potdar",
+    description,
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "suvir.net" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Suvir Potdar | Software, Infrastructure & AI",
-    description:
-      "Student engineer building practical software, infrastructure, automation, and AI-assisted workflows.",
+    title: "Suvir Potdar",
+    description,
     images: ["/og.png"],
   },
 };
@@ -70,21 +46,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{document.documentElement.dataset.theme=localStorage.getItem('suvir-theme')==='light'?'light':'dark'}catch(e){document.documentElement.dataset.theme='dark'}`,
-          }}
-        />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en">
+      <body className={bricolage.variable}>
         <a className="skip-link" href="#main-content">Skip to content</a>
-        <SiteHeader />
-        {children}
-        <SiteFooter />
+        <div className="shell">
+          <div className="shell-inner">
+            <SiteHeader />
+            {children}
+            <SiteFooter />
+          </div>
+        </div>
       </body>
     </html>
   );

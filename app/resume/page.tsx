@@ -2,25 +2,18 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Résumé",
-  description: "Résumé of Suvir Potdar, student software and infrastructure engineer.",
+  description: "One-page résumé for Suvir Potdar.",
 };
 
 export default function ResumePage() {
   return (
-    <main id="main-content" className="resume-page section-shell">
-      <header className="resume-header">
-        <div>
-          <p className="eyebrow">Résumé / PDF</p>
-          <h1>Suvir Potdar</h1>
-        </div>
-        <a
-          className="primary-action"
-          href="/suvir-potdar-resume.pdf"
-          download="Suvir-Potdar-Resume.pdf"
-        >
-          Download PDF <span aria-hidden="true">↓</span>
+    <main id="main-content">
+      <div className="resume-head">
+        <p className="lede">Résumé, one page.</p>
+        <a href="/suvir-potdar-resume.pdf" download="Suvir-Potdar-Resume.pdf">
+          download the pdf
         </a>
-      </header>
+      </div>
       <object
         className="resume-frame"
         data="/suvir-potdar-resume.pdf"
@@ -28,10 +21,10 @@ export default function ResumePage() {
         aria-label="Suvir Potdar résumé"
       >
         <p className="resume-fallback">
-          Your browser cannot display this PDF. <a href="/suvir-potdar-resume.pdf">Open the résumé directly.</a>
+          Your browser won’t display the PDF.{" "}
+          <a href="/suvir-potdar-resume.pdf">Open it directly.</a>
         </p>
       </object>
     </main>
   );
 }
-

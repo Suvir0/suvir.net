@@ -1,234 +1,172 @@
-export type ProjectStatus = "Live" | "Maintained" | "Ongoing";
-
-export type Project = {
-  slug: string;
-  index: string;
-  title: string;
-  category: string;
-  status: ProjectStatus;
-  year: string;
-  summary: string;
-  description: string;
-  technologies: string[];
-  href?: string;
-  hrefLabel?: string;
-  sourceHref?: string;
-  challenge: string;
-  approach: string;
-  decisions: string[];
-  lessons: string[];
-};
-
-export type Experience = {
-  period: string;
-  title: string;
-  context: string;
-  summary: string;
-  details: string[];
-};
-
-export type CapabilityGroup = {
-  label: string;
-  summary: string;
-  items: string[];
-};
-
 export const profile = {
   name: "Suvir Potdar",
-  initials: "SP",
-  location: "South Brunswick, New Jersey",
+  location: "New Jersey",
   graduationYear: 2027,
   email: "hello@suvir.net",
   github: "https://github.com/Suvir0",
+  githubUser: "Suvir0",
   linkedin: "https://www.linkedin.com/in/suvir-p/",
-  availability: {
-    enabled: true,
-    label: "Open to internships, mentorship, and collaborative projects",
-  },
+  openTo:
+    "Internships, and anyone who wants a second pair of hands on their infrastructure.",
 };
 
-export const projects: Project[] = [
+export type Rebuild = {
+  os: string;
+  body: string;
+  note: string;
+};
+
+export const rebuilds: Rebuild[] = [
   {
-    slug: "guess-that-stat",
-    index: "01",
-    title: "GuessThatStat",
-    category: "Educational web application",
-    status: "Live",
-    year: "2025",
-    summary:
-      "An interactive statistics practice app built to make AP Statistics review more immediate and engaging.",
-    description:
-      "GuessThatStat turns practice questions into a focused game loop with answer evaluation, immediate feedback, score tracking, and question progression. It began as a practical study tool for classmates and became an exercise in shipping a real product for real users.",
-    technologies: ["React", "TypeScript", "HTML", "CSS"],
-    href: "https://gts.suvir.net",
-    hrefLabel: "Open live application",
-    sourceHref: "https://github.com/Suvir0/GuessThatStat",
-    challenge:
-      "Create an engaging statistics review experience that keeps the reasoning behind each answer visible.",
-    approach:
-      "I designed a short interaction loop: present a focused question, evaluate the response, explain the result, and move the learner forward while preserving a clear sense of progress.",
-    decisions: [
-      "Keep feedback immediate so mistakes become part of the learning loop.",
-      "Track question progression and scoring in one consistent state model.",
-      "Prioritize a fast, browser-based experience that classmates could use without setup.",
-    ],
-    lessons: [
-      "Peer feedback reveals interaction problems that are easy to miss while building alone.",
-      "Reliable state transitions matter as much as visual design in an educational tool.",
-      "Shipping a focused product for classmates taught me to value completion and direct feedback.",
-    ],
+    os: "Proxmox, on an old HP laptop from 2015",
+    body:
+      "I picked Proxmox because it was the first recommendation that popped up when you searched for home lab on Reddit and other forums. This was a computer that my family never used, so it seemed perfect. Knowing absolutely nothing about networking, getting the WebUI and the VMs set up was a journey by itself.",
+    note: "The laptop is now sitting in a drawer. It still works, though.",
   },
   {
-    slug: "infrastructure-lab",
-    index: "02",
-    title: "Infrastructure Lab",
-    category: "Infrastructure · Security · Networking",
-    status: "Ongoing",
-    year: "2023-Present",
-    summary:
-      "A maintained environment for learning virtualization, containers, identity, networking, monitoring, and secure service operation.",
-    description:
-      "My self-hosted environment is a practical laboratory for the work that begins after an application leaves a development machine. I plan deployments, manage access, investigate failures, monitor services, and document changes across virtualized, containerized, and cloud-connected systems.",
-    technologies: [
-      "Linux",
-      "Proxmox",
-      "Docker",
-      "Cloudflare",
-      "Authentik",
-      "Grafana",
-      "Networking",
-      "OAuth 2.0 / OIDC",
-    ],
-    challenge:
-      "Understand how software behaves as a maintained system, including the dependencies, permissions, networks, certificates, and operational failures that local development rarely exposes.",
-    approach:
-      "I treat the environment as a continuously evolving lab: isolate workloads, document access paths, centralize identity where appropriate, monitor health, and make changes with recovery in mind.",
-    decisions: [
-      "Separate services into virtualized or containerized workloads according to their operational needs.",
-      "Keep administration surfaces behind private networking and deliberate access controls.",
-      "Add monitoring and documentation during deployment.",
-    ],
-    lessons: [
-      "Operating a service requires regular updates, observation, and maintenance.",
-      "Most failures cross boundaries between configuration, networking, storage, and permissions.",
-      "Simple diagrams and accurate runbooks reduce the cost of future troubleshooting.",
-    ],
+    os: "Proxmox, on my gaming PC",
+    body:
+      "I stopped playing video games, so I never had a use for it after. I had a Mac now, and that was enough. The PC had a powerful CPU and plenty of RAM, which I upgraded later on. The networking didn’t get easier, but at least I was getting the hang of it. The continuity with the VMs wasn’t great, and I didn’t feel like debugging machines at 3 a.m. because I wanted to watch a movie or people couldn’t access my Minecraft servers.",
+    note:
+      "I learned about reverse proxies and how easy it is to have your server compromised when exposing services to the web.",
   },
   {
-    slug: "ripuz",
-    index: "03",
+    os: "Unraid",
+    body:
+      "Unraid was easy. The drives just worked. I was able to run parity, so data loss was rarely a worry. I could do everything I needed with just mouse clicks instead of running Linux commands and praying they worked. This was the best during the school year because it required such low maintenance that I could start the server and forget about it.",
+    note: "Lasted the longest of the five rebuilds because of its ease.",
+  },
+  {
+    os: "Proxmox, again",
+    body:
+      "The ease of Unraid started to feel underwhelming. This was when I realized I actually enjoyed the debugging sessions. Even though they increased my stress level overall, it was fun to learn how a capital letter could take down my whole media stack.",
+    note: "The problem wasn’t the OS. I just couldn’t make up my mind.",
+  },
+  {
+    os: "Ubuntu",
+    body:
+      "I wanted a GUI to explore KDE and Hyprland. Up to this point, I had never used a Linux distro with a GUI. All my work had been in the CLI or the WebUI. The great thing about Ubuntu was that I could use that machine as my main computer via Moonlight and still run every service that I had running on Proxmox.",
+    note: "This might change by next summer.",
+  },
+];
+
+export type Mistake = {
+  lead: string;
+  body: string;
+};
+
+export const mistakes: Mistake[] = [
+  {
+    lead: "I spent hundreds of dollars on AI tools looking for the best one.",
+    body:
+      "Different platforms, overlapping subscriptions, months of it. Whichever one is best changes every few weeks, so I was tuning my tools instead of finishing my work. I still use them every day. I just stopped expecting them to know what I meant.",
+  },
+  {
+    lead: "I couldn’t commit to an operating system.",
+    body:
+      "Five rebuilds means the server spent more time getting set up than it did being used. At least twice I switched because I was bored, not because Proxmox or Unraid was stopping me from doing anything. I like the setup part more than I should, and that is a slow way to get something running.",
+  },
+  {
+    lead: "Sometimes I quit for a week.",
+    body:
+      "When something is broken deep enough (permissions, DNS, a container that won’t resolve its own hostname) I stop and come back seven days later. It works more often than sitting there does. I have never once found the answer on the night I was mad about it.",
+  },
+];
+
+export type Fact = {
+  term: string;
+  value: string;
+};
+
+export const rightNow: Fact[] = [
+  {
+    term: "The server runs",
+    value: "Ubuntu, with a desktop on it for once. Docker for anything that will tolerate it.",
+  },
+  {
+    term: "I mostly write",
+    value:
+      "Python and TypeScript. Java for AP CS, and enough C++ to keep the Discord bridge compiling.",
+  },
+  {
+    term: "Also keeping alive",
+    value:
+      "Cloudflare DNS and tunnels, an Authentik login for the private stuff, and Grafana dashboards I check more often than I need to.",
+  },
+  {
+    term: "Working on",
+    value: "The SAT practice app. Cleaning up the extractor so the repo can go public.",
+  },
+];
+
+export type Change = {
+  date: string;
+  text: string;
+};
+
+export const changelog: Change[] = [
+  {
+    date: "August 21, 2026",
+    text:
+      "Threw out the old site. It had a grid of eight boxes and a slogan and told you nothing about me. Rewrote the whole thing as sentences.",
+  },
+  {
+    date: "August 21, 2026",
+    text: "Removed the light and dark toggle. This page is one color, on purpose.",
+  },
+];
+
+export type Work = {
+  title: string;
+  status?: string;
+  href?: string;
+  meta: string;
+  body: string;
+  hard: string;
+  stack: string;
+  sourceHref?: string;
+};
+
+export const work: Work[] = [
+  {
+    title: "practice.suvir.net",
+    meta: "SAT practice, private, 2026",
+    body:
+      "A study app over the 3,714-question official SAT bank, plus a rebuild of Bluebook’s testing surface so practicing feels like the real thing instead of a worksheet. I use it myself. It’s gated and the repo is private, because the questions belong to College Board. The software is mine.",
+    hard:
+      "A Python extractor. The source PDFs set every equation as vector art rather than text, so nothing parsed straight through. It crops each equation off the page and drops the image back exactly where the math belongs.",
+    stack: "Vanilla JavaScript, no build step. Two Cloudflare Workers, D1, Python.",
+  },
+  {
+    title: "Roon Rich Presence",
+    href: "https://rrp.suvir.net",
+    meta: "desktop app, 2026",
+    body:
+      "A local app that publishes what Roon is playing to Discord. No account, no hosted service, and no listening history leaving the machine. Authorization, settings, and diagnostics all stay on your own device.",
+    hard:
+      "Discord’s SDK is native and proprietary, so it sits behind a small C++ bridge with a stub backend for development and CI, while Roon discovery and playback mapping live in a tested TypeScript core. Every build ships signed, with checksums, an SBOM, and provenance.",
+    stack: "TypeScript, React, Electron, C++, Roon API, GitHub Actions.",
+  },
+  {
     title: "Ripuz",
-    category: "Python automation and metadata workflow",
-    status: "Maintained",
-    year: "2026",
-    summary:
-      "A containerized Python workflow that coordinates external tools, metadata, files, and long-running jobs into consistent output.",
-    description:
-      "Ripuz explores how independent utilities and data sources can become one repeatable system. The project combines a FastAPI service, a persistent job queue, metadata processing, subprocess coordination, a browser interface, and containerized deployment.",
-    technologies: [
-      "Python",
-      "FastAPI",
-      "Docker",
-      "SQLite",
-      "Metadata processing",
-      "Automated testing",
-    ],
-    challenge:
-      "Coordinate tools with inconsistent output and failure behavior while keeping long-running work observable, repeatable, and safe to resume.",
-    approach:
-      "I separated request handling, job state, external integrations, file movement, verification, and cleanup into explicit stages backed by persistent state and tests around failure-prone boundaries.",
-    decisions: [
-      "Use a durable job model so progress and failures remain visible across a long workflow.",
-      "Add preflight planning and confirmation before large batches begin.",
-      "Verify output before cleanup and isolate external systems behind testable adapters.",
-    ],
-    lessons: [
-      "Clear boundaries and explicit failure handling made the integrations easier to test and maintain.",
-      "Idempotency and deduplication become essential when jobs can overlap or restart.",
-      "Preflight checks, disk guards, and deduplication became essential parts of the workflow.",
-    ],
-  },
-];
-
-export const skillGroups = [
-  {
-    label: "Primary",
-    items: ["Python", "TypeScript", "Linux", "Docker", "Networking", "Git / GitHub"],
+    meta: "Python automation, 2026",
+    status:
+      "On hold. I’m rebranding this one and rewriting most of it. What’s below still runs on my server. It just isn’t the version I want to put my name on yet.",
+    body:
+      "A containerized workflow that takes a pile of separate command-line tools with inconsistent output and turns them into one repeatable pipeline: request in, durable job queue, metadata processing, verification, cleanup.",
+    hard:
+      "Making long jobs safe to resume. Once jobs can overlap or restart, idempotency and deduplication stop being nice ideas, and the preflight checks and disk guards have to run before a big batch instead of after it falls over.",
+    stack: "Python, FastAPI, Docker, SQLite.",
   },
   {
-    label: "Working knowledge",
-    items: ["Java", "Proxmox", "Unraid", "Cloudflare", "Grafana", "OAuth / OIDC"],
+    title: "GuessThatStat",
+    href: "https://gts.suvir.net",
+    meta: "study tool, 2025",
+    body:
+      "An AP Statistics practice app I built for my class. One question, an answer, an immediate explanation, then forward. It started as a way to study and became the first thing I shipped that other people used without me in the room.",
+    hard:
+      "Not the code, the loop. Classmates found interaction problems in ten minutes that I hadn’t seen in a week of building it alone, and every one of them came down to how fast the feedback showed up.",
+    stack: "React, TypeScript, HTML, CSS.",
+    sourceHref: "https://github.com/Suvir0/GuessThatStat",
   },
-  {
-    label: "Currently exploring",
-    items: ["Cybersecurity engineering", "Agentic AI systems", "Scalable architecture", "Aerospace simulation"],
-  },
-];
-
-export const experiences: Experience[] = [
-  {
-    period: "2023-Present",
-    title: "Infrastructure engineering",
-    context: "Personal Infrastructure Lab · Self-directed",
-    summary:
-      "Design and maintain a self-hosted environment for virtualization, containers, identity, networking, monitoring, and secure service deployment.",
-    details: [
-      "Operate Linux-based virtual machines and containers across self-hosted and cloud-connected environments.",
-      "Configure DNS, TLS, reverse proxies, private networking, and remote access.",
-      "Build monitoring dashboards and investigate failures involving dependencies, storage, permissions, and configuration.",
-    ],
-  },
-  {
-    period: "2025",
-    title: "Developer",
-    context: "GuessThatStat · Student project",
-    summary:
-      "Designed and shipped an interactive statistics practice application, then refined the product based on feedback from classmates.",
-    details: [
-      "Implemented question progression, answer evaluation, score tracking, and immediate feedback.",
-      "Structured the frontend in TypeScript and deployed it for use outside a local environment.",
-      "Used peer feedback to clarify the interaction and study flow.",
-    ],
-  },
-];
-
-export const coursework = [
-  "AP Calculus BC",
-  "AP Statistics",
-  "AP Physics C: Mechanics",
-  "AP Physics C: E&M",
-  "AP Computer Science A",
-  "AP English Language",
-];
-
-export const capabilityGroups: CapabilityGroup[] = [
-  {
-    label: "Build",
-    summary: "Turn a defined problem into a working application or automation workflow.",
-    items: ["Python", "TypeScript", "Java", "HTML / CSS", "REST APIs", "Automation", "Git"],
-  },
-  {
-    label: "Deploy",
-    summary: "Move software beyond a development machine with repeatable infrastructure.",
-    items: ["Linux", "Docker", "Virtual machines", "Containers", "Cloud infrastructure", "Reverse proxies", "DNS", "TLS"],
-  },
-  {
-    label: "Secure",
-    summary: "Design access deliberately and minimize unnecessary exposure.",
-    items: ["OAuth 2.0", "OpenID Connect", "Single sign-on", "Private networking", "Access control", "Identity management"],
-  },
-  {
-    label: "Operate",
-    summary: "Keep systems understandable after deployment and diagnose what changes over time.",
-    items: ["Grafana", "Metrics", "Dashboards", "Alerting", "Logs", "Troubleshooting", "Updates", "Documentation"],
-  },
-];
-
-export const interests = [
-  "Aerospace engineering",
-  "Physics",
-  "Formula 1",
-  "Basketball",
-  "Soccer",
-  "UFC",
 ];

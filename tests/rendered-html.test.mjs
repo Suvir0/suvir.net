@@ -2,71 +2,49 @@ import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
-const templateRoot = new URL("../", import.meta.url);
+const out = new URL("../out/", import.meta.url);
 
-async function render(path = "/") {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
+const page = (path) => readFile(new URL(path, out), "utf8");
 
-  return worker.fetch(
-    new Request(`http://localhost${path}`, {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
-  );
-}
+test("the notes page carries the narrative", async () => {
+  const html = await page("index.html");
 
-test("server-renders Suvir's portfolio", async () => {
-  const response = await render();
-  assert.equal(response.status, 200);
-  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
-
-  const html = await response.text();
-  assert.match(html, /<title>Suvir Potdar \| Software, Infrastructure &amp; AI<\/title>/i);
-  assert.match(html, /I build software, deploy it, and keep it running/);
-  assert.match(html, /GuessThatStat/);
-  assert.match(html, /Infrastructure Lab/);
-  assert.match(html, /Open to internships and technical collaboration/);
+  assert.match(html, /<title>Suvir Potdar<\/title>/i);
+  assert.match(html, /can(’|&#x27;)t decide on an operating system/);
+  assert.match(html, /rebuild by rebuild/);
+  assert.match(html, /Ubuntu/);
+  assert.match(html, /What I got wrong/);
   assert.match(html, /application\/ld\+json/);
 });
 
-test("server-renders the new primary pages", async () => {
-  const routes = [
-    ["/about", /Software makes more sense when you understand the system around it/],
-    ["/engineering", /Build\. Deploy\. Secure\. Operate/],
-    ["/projects", /Selected software and infrastructure projects/],
-    ["/resume", /Download PDF/],
-  ];
+test("work lists every project and flags the one on hold", async () => {
+  const html = await page("work/index.html");
 
-  for (const [path, expected] of routes) {
-    const response = await render(path);
-    assert.equal(response.status, 200, path);
-    assert.match(await response.text(), expected, path);
+  for (const title of ["practice.suvir.net", "Roon Rich Presence", "Ripuz", "GuessThatStat"]) {
+    assert.match(html, new RegExp(title.replace(/\./g, "\\.")), title);
   }
+
+  assert.match(html, /work-status/);
+  assert.match(html, /On hold/);
 });
 
-test("removes starter preview code and keeps the resume available", async () => {
-  const [page, layout, packageJson] = await Promise.all([
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../package.json", import.meta.url), "utf8"),
-  ]);
+test("the résumé page links the PDF", async () => {
+  const html = await page("resume/index.html");
 
-  assert.doesNotMatch(packageJson, /react-loading-skeleton/);
-  assert.doesNotMatch(page, /SkeletonPreview|codex-preview/);
-  assert.doesNotMatch(layout, /Starter Project|codex-preview/);
+  assert.match(html, /R(é|&#x27;|&eacute;)sum(é|&eacute;), one page/);
+  assert.match(html, /suvir-potdar-resume\.pdf/);
+});
 
-  await assert.rejects(
-    access(new URL("app/_sites-preview", templateRoot)),
-  );
-  await access(new URL("public/suvir-potdar-resume.pdf", templateRoot));
+test("the previous generic site is gone", async () => {
+  const html = await page("index.html");
+
+  assert.doesNotMatch(html, /Operating range<\/strong>/);
+  assert.doesNotMatch(html, /Selected projects with clear technical depth/);
+  assert.doesNotMatch(html, /Toggle color theme/);
+});
+
+test("the deployable artifact has what Pages needs", async () => {
+  assert.equal((await readFile(new URL("CNAME", out), "utf8")).trim(), "suvir.net");
+  await access(new URL("suvir-potdar-resume.pdf", out));
+  await access(new URL("og.png", out));
 });

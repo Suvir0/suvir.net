@@ -1,7 +1,7 @@
-# Suvir Potdar Portfolio
+# suvir.net
 
-Personal portfolio for [suvir.net](https://suvir.net), built with React,
-TypeScript, vinext, and custom CSS.
+Personal site for [suvir.net](https://suvir.net). Next.js App Router, exported
+as static HTML and served from GitHub Pages.
 
 ## Local development
 
@@ -12,46 +12,46 @@ npm install
 npm run dev
 ```
 
-Useful checks:
+Checks:
 
 ```bash
 npm run lint
-npx tsc --noEmit
+npm run typecheck
 npm test
-npm run build:pages
 ```
 
-## Updating content
+`npm test` builds the site and asserts against the real exported HTML in `out/`.
 
-Most personal content lives in `app/content.ts`:
+## Structure
 
-- `profile` controls contact links and the availability line.
-- `projects` controls homepage project rows and case-study routes.
-- `skillGroups` controls the grouped skills section.
+Three routes, all statically rendered:
 
-Homepage narrative, education, and experience copy lives in `app/page.tsx`.
-Visual tokens and responsive rules live in `app/globals.css`.
+| Route     | File                 |
+| --------- | -------------------- |
+| `/`       | `app/page.tsx`       |
+| `/work`   | `app/work/page.tsx`  |
+| `/resume` | `app/resume/page.tsx`|
 
-The primary site routes are `/`, `/about`, `/projects`, `/engineering`, and
-`/resume`. Project case studies continue to use `/projects/[slug]`.
+Prose and project data live in `app/content.ts`. Page structure lives in the
+route files. Every visual token and responsive rule is in `app/globals.css`.
 
-To update the résumé, replace `public/suvir-potdar-resume.pdf` while keeping
-that filename. Verify `/resume` after replacement.
+`app/last-push.tsx` is the only client component. It reads the public GitHub
+events API for the "Last push" row and falls back to a plain profile link when
+that request fails or is rate limited.
+
+To replace the résumé, overwrite `public/suvir-potdar-resume.pdf` under the same
+filename, then check `/resume`.
 
 ## Publishing
 
-`npm run build:pages` creates the static `out/` artifact used by GitHub Pages.
-Pushes to `main` deploy that artifact through `.github/workflows/pages.yml`.
+`npm run build` writes the static site to `out/`. Pushing to `main` runs
+`.github/workflows/pages.yml`, which builds and deploys that directory.
 
-`npm run build` continues to validate the Sites-compatible build. The Sites
-project association is stored in `.openai/hosting.json`; do not replace its
-`project_id` when saving a new version of the existing site.
+The custom domain comes from `public/CNAME`, which the export copies to
+`out/CNAME`. GitHub Pages must stay on the GitHub Actions publishing source.
 
-The public production domain is `suvir.net`. GitHub Pages must remain configured
-to use that custom domain and its GitHub Actions publishing source.
+## Content rules
 
-## Content safety
-
-Do not add private hostnames, IP addresses, administration URLs, credentials,
-live infrastructure status, or detailed diagrams of the real network. Omit
-unverified metrics and unavailable links. Do not add placeholders.
+No private hostnames, IP addresses, admin URLs, credentials, live
+infrastructure status, or diagrams of the real network. No unverified metrics,
+no dead links, no placeholders.
