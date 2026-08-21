@@ -146,6 +146,7 @@ export const work: Work[] = [
     hard:
       "Discord’s SDK is native and proprietary, so it sits behind a small C++ bridge with a stub backend for development and CI, while Roon discovery and playback mapping live in a tested TypeScript core. Every build ships signed, with checksums, an SBOM, and provenance.",
     stack: "TypeScript, React, Electron, C++, Roon API, GitHub Actions.",
+    sourceHref: "https://github.com/Suvir0/roon-rich-presence",
   },
   {
     title: "Ripuz",
