@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { profile } from "./content";
+import { NowPlaying } from "./now-playing";
 
 const navigation = [
   { href: "/", label: "notes" },
@@ -20,10 +21,13 @@ export function SiteHeader() {
 
   return (
     <header className="topbar">
-      <p className="topbar-name">
-        <Link href="/">{profile.name}</Link>
-        <span className="topbar-place">, {profile.location}</span>
-      </p>
+      <div className="topbar-left">
+        <p className="topbar-name">
+          <Link href="/">{profile.name}</Link>
+          <span className="topbar-place">, {profile.location}</span>
+        </p>
+        <NowPlaying />
+      </div>
       <nav aria-label="Primary">
         {navigation.map((item) => (
           <Link

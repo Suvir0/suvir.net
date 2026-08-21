@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "suvir-now-playing",
+  "main": "index.js",
+  "compatibility_date": "2026-08-21",
+  "vars": {
+    // Your Last.fm username. Not a secret; scrobbles are public.
+    "LASTFM_USER": "candiedlmao"
+  }
+  // LASTFM_API_KEY is a secret:  wrangler secret put LASTFM_API_KEY
+}

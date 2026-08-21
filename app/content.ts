@@ -10,6 +10,13 @@ export const profile = {
     "Internships, and anyone who wants a second pair of hands on their infrastructure.",
 };
 
+// Now-playing source: the Worker in workers/now-playing, which holds the API
+// key and returns only the track that is currently scrobbling. Empty endpoint
+// means the row never renders, so the site is fine before it is deployed.
+export const lastfm = {
+  endpoint: process.env.NEXT_PUBLIC_LASTFM_ENDPOINT ?? "",
+};
+
 export type Rebuild = {
   os: string;
   body: string;

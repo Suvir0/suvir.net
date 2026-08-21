@@ -35,6 +35,10 @@ jobs:
 
       - name: Build static site
         run: npm run build
+        env:
+          # Repository variable, not a secret: the Worker URL is public.
+          # Unset simply hides the now-playing row.
+          NEXT_PUBLIC_LASTFM_ENDPOINT: ${{ vars.LASTFM_ENDPOINT }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
