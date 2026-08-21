@@ -58,8 +58,7 @@ export default function Home() {
               <figcaption>Senior photo, 2026.</figcaption>
             </figure>
             <p className="note">
-              I wrote this. The version of this page before it had a grid of eight boxes
-              labeled things like “Operating range.” It didn’t say anything.
+              
             </p>
           </div>
         </div>
