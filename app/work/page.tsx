@@ -4,7 +4,7 @@ import { work } from "../content";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Four things Suvir Potdar built and still maintains, with the part that was actually hard.",
+    "Five things Suvir Potdar built and still maintains, with the part that was actually hard.",
 };
 
 export default function WorkPage() {
@@ -12,7 +12,7 @@ export default function WorkPage() {
     <main id="main-content">
       <div className="row intro">
         <p className="lede">
-          Four things I built and still maintain, with the part that was actually hard.
+          Five things I built and still maintain, with the part that was actually hard.
         </p>
         <p className="note">
           No status badges, no stack chips. If you want the stack it’s the last line of

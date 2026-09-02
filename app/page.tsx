@@ -37,7 +37,9 @@ export default function Home() {
               they’re listening to on Discord, an easy downloader for music just because
               the ones that existed annoyed me, and finally a project for my friends to
               use the SAT question bank just because downloading PDFs for each topic was
-              inconvenient.
+              inconvenient. The newest one is a survey of which New Jersey school
+              districts have told the world’s mail servers to reject email pretending to
+              be them, and how many haven’t.
             </p>
             <p className="body-text">
               I’m graduating in June of 2027. I’m always looking for more work. I’m open

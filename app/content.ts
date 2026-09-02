@@ -136,6 +136,17 @@ export type Work = {
 
 export const work: Work[] = [
   {
+    title: "NJ Email Security Census",
+    href: "https://njemail.suvir.net",
+    meta: "DNS survey of every NJ school district, 2026",
+    body:
+      "A passive survey of the email domain of every public school district in New Jersey, all 682 of them. It asks DNS the same questions a mail server asks when a message shows up claiming to be from a district: is there an SPF record, is there a DMARC record, and does it say to reject a fake. 29% publish no DMARC at all, and charter schools are about twice as exposed as regular districts. The dashboard shows aggregates only. No district is named anywhere public, and the per-district findings go to the districts and to NJCCIC first, so a bad grade is a reason to fix a record instead of a headline.",
+    hard:
+      "Trusting my own numbers. The first run said 28 districts had an SPF include loop. There were zero. My lookup counter used one visited set for the whole walk, so two vendors that both include Google looked like a cycle, and 19 districts got capped at a D for a bug in my code. Fixing it moved 17 grades. Every one of those moves is written down in the changelog, because a grade that changes without an explanation is worse than no grade.",
+    stack: "Python, dnspython, SQLite. Cloudflare Worker and D1 for the dashboard, no build step.",
+    sourceHref: "https://github.com/Suvir0/nj-email-security-census",
+  },
+  {
     title: "practice.suvir.net",
     meta: "SAT practice, private, 2026",
     body:

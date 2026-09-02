@@ -20,7 +20,7 @@ test("the notes page carries the narrative", async () => {
 test("work lists every project and flags the one on hold", async () => {
   const html = await page("work/index.html");
 
-  for (const title of ["practice.suvir.net", "Roon Rich Presence", "Ripuz", "GuessThatStat"]) {
+  for (const title of ["NJ Email Security Census", "practice.suvir.net", "Roon Rich Presence", "Ripuz", "GuessThatStat"]) {
     assert.match(html, new RegExp(title.replace(/\./g, "\\.")), title);
   }
 
