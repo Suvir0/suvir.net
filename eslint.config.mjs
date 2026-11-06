@@ -13,6 +13,8 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "workers/**",
+    // beta/ is a separate Vite + Three.js workspace with its own tooling.
+    "beta/**",
   ]),
 ]);
 

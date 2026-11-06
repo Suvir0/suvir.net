@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>The Rack — Suvir Potdar</title>
+    <meta
+      name="description"
+      content="suvir.net/beta. A server rack in a dark room: five projects, one 1U at a time. Falls back to a plain readable page."
+    />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#05070a" />
+    <link rel="canonical" href="https://suvir.net/beta/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="The Rack — Suvir Potdar" />
+    <meta property="og:url" content="https://suvir.net/beta/" />
+    <meta
+      property="og:description"
+      content="suvir.net/beta. A server rack in a dark room: five projects, one 1U at a time."
+    />
+    <style>
+      :root {
+        --bg: #05070a;
+        --ink: #c3cdd6;
+        --bright: #eef4f8;
+        --muted: #78848f;
+        --accent: #7dffb0;
+        --rule: #1c2227;
+        color-scheme: dark;
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--ink);
+      }
+
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-size: 17px;
+        line-height: 1.62;
+        text-wrap: pretty;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a { color: var(--accent); text-underline-offset: 3px; }
+      a:hover { color: var(--bright); }
+
+      :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+      /* ---- the readable page ---- */
+
+      #fallback {
+        max-width: 72ch;
+        margin: 0 auto;
+        padding: 56px 20px 96px;
+      }
+
+      #fallback .kicker {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin: 0 0 10px;
+      }
+
+      #fallback h1 { font-size: 2rem; margin: 0 0 6px; color: var(--bright); line-height: 1.2; }
+      #fallback h2 { font-size: 1.25rem; margin: 54px 0 4px; color: var(--bright); }
+      #fallback h3 { font-size: 1.02rem; margin: 34px 0 2px; color: var(--bright); }
+      #fallback h4 {
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 18px 0 2px;
+      }
+      #fallback p { margin: 12px 0; }
+      #fallback section { border-top: 1px solid var(--rule); padding-top: 4px; }
+      #fallback header { border: 0; }
+
+      #fallback .meta {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 13.5px;
+        color: var(--muted);
+      }
+      #fallback .links a { margin-right: 16px; font-size: 14px; }
+      #fallback .unit { padding-bottom: 10px; }
+
+      #fallback dl { margin: 14px 0; }
+      #fallback dl > div { display: grid; grid-template-columns: 150px 1fr; gap: 14px; padding: 7px 0; border-top: 1px solid var(--rule); }
+      #fallback dt { color: var(--muted); font-size: 14px; }
+      #fallback dd { margin: 0; }
+
+      #fallback .history { padding-left: 20px; }
+      #fallback .history li { margin: 8px 0; }
+      #fallback .history strong { color: var(--bright); font-weight: 600; }
+
+      #fallback footer { margin-top: 56px; border-top: 1px solid var(--rule); padding-top: 18px; font-size: 14px; }
+
+      @media (max-width: 560px) {
+        #fallback dl > div { grid-template-columns: 1fr; gap: 2px; }
+      }
+
+      /* ---- the scene ---- */
+
+      #stage {
+        position: fixed;
+        inset: 0;
+        display: none;
+        background: var(--bg);
+      }
+      #stage canvas { display: block; width: 100%; height: 100%; }
+
+      /* With the scene up, the readable page is taken off screen but left in
+         the accessibility tree. display:none would delete it, and a screen
+         reader would be handed a WebGL canvas and nothing else. */
+      body.webgl #fallback {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+        border: 0;
+      }
+      body.webgl #stage { display: block; }
+
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        z-index: 20;
+        background: var(--bg);
+        color: var(--accent);
+        border: 1px solid var(--rule);
+        border-radius: 4px;
+        padding: 10px 14px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 13px;
+        text-decoration: none;
+      }
+      .skip-link:focus { left: 12px; top: 12px; }
+
+      #hud {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted);
+        display: none;
+      }
+      body.webgl #hud { display: block; }
+
+      #hud .tl { position: absolute; top: 18px; left: 20px; line-height: 1.75; }
+      #hud .tr { position: absolute; top: 18px; right: 20px; text-align: right; line-height: 1.75; }
+      #hud .bc {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      #hud .bc.on { opacity: 1; }
+      #hud b { color: var(--bright); font-weight: 600; }
+      #hud a { pointer-events: auto; }
+
+      #controls {
+        position: fixed;
+        bottom: 18px;
+        right: 20px;
+        display: none;
+        gap: 8px;
+        z-index: 10;
+      }
+      body.webgl #controls { display: flex; }
+
+      #controls > * {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 11.5px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+        border: 1px solid var(--rule);
+        padding: 7px 11px;
+        border-radius: 4px;
+        background: rgba(5, 7, 10, 0.7);
+        cursor: pointer;
+      }
+      #controls > *:hover { color: var(--bright); border-color: var(--muted); }
+      #sound[aria-pressed="true"] { color: var(--accent); border-color: #234; }
+
+      #boot-note {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        background: var(--bg);
+        z-index: 5;
+        transition: opacity 0.6s ease;
+      }
+      #boot-note.gone { opacity: 0; pointer-events: none; }
+
+      #pad {
+        position: fixed;
+        bottom: calc(14px + env(safe-area-inset-bottom));
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 10;
+      }
+      #pad[hidden] { display: none; }
+      #pad button {
+        width: 54px;
+        height: 46px;
+        font: inherit;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 17px;
+        color: var(--ink);
+        background: rgba(10, 14, 18, 0.82);
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
+      #pad button:active { background: rgba(125, 255, 176, 0.14); color: var(--bright); }
+      #pad button[data-key="Escape"] { font-size: 12px; letter-spacing: 0.06em; }
+
+      @media (max-width: 760px) {
+        #hud .tl { font-size: 10.5px; top: 14px; left: 14px; }
+        #hud .tr { display: none; }
+        /* The hint sits above the pad rather than under it. */
+        #hud .bc { bottom: calc(72px + env(safe-area-inset-bottom)); font-size: 10.5px; max-width: 92vw; line-height: 1.6; }
+        /* Top right, where the status block has been hidden -- the bottom
+           of a phone screen belongs to the pad. */
+        #controls { top: 14px; bottom: auto; right: 14px; }
+        #controls > * { padding: 8px 9px; font-size: 10px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#fallback">Skip to the readable version</a>
+
+    <!--FALLBACK-->
+
+    <div id="stage" aria-hidden="true"></div>
+
+    <div id="hud">
+      <div class="tl">
+        Suvir Potdar<br />
+        <span style="opacity: 0.7">Rack 01 · 24U · New Jersey</span>
+      </div>
+      <div class="tr" id="hud-right"></div>
+      <div class="bc" id="hud-hint"></div>
+    </div>
+
+    <div id="controls">
+      <button id="sound" type="button" aria-pressed="false" title="Sound is off">
+        <span aria-hidden="true">&#9834;</span> off
+      </button>
+      <a id="escape" href="#" data-plain>Read it as a page</a>
+    </div>
+
+    <!-- Touch devices have no arrow keys. These do what the keyboard does. -->
+    <div id="pad" hidden>
+      <button type="button" data-key="ArrowUp" aria-label="Up">&uarr;</button>
+      <button type="button" data-key="Enter" aria-label="Open">&crarr;</button>
+      <button type="button" data-key="ArrowDown" aria-label="Down">&darr;</button>
+      <button type="button" data-key="Escape" aria-label="Back">esc</button>
+    </div>
+
+    <!-- Announces which screen the rack is showing, for screen readers. -->
+    <div id="announce" class="skip-link" aria-live="polite" style="left: -9999px" role="status"></div>
+
+    <div id="boot-note">Warming up</div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

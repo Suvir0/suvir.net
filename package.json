@@ -8,10 +8,12 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && npm -w beta run build",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit",
-    "test": "npm run build && node --test tests/*.test.mjs"
+    "typecheck": "tsc --noEmit && npm -w beta run typecheck",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "build:site": "next build",
+    "dev:beta": "npm -w beta run dev"
   },
   "dependencies": {
     "next": "16.2.6",
@@ -27,5 +29,8 @@
     "eslint-config-next": "16.2.6",
     "tailwindcss": "4.2.1",
     "typescript": "5.9.3"
-  }
+  },
+  "workspaces": [
+    "beta"
+  ]
 }

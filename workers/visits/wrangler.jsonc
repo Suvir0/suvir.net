@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "suvir-net-visits",
+  "main": "index.js",
+  "compatibility_date": "2026-01-01",
+  "observability": { "enabled": true },
+  "kv_namespaces": [
+    {
+      "binding": "VISITS",
+      // Replace with the id printed by:
+      //   npx wrangler kv namespace create VISITS
+      "id": "REPLACE_WITH_KV_NAMESPACE_ID"
+    }
+  ]
+}

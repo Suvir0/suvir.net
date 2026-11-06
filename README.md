@@ -24,7 +24,11 @@ npm test
 
 ## Structure
 
-Three routes, all statically rendered:
+Two things live here. The main site is `app/`. `beta/` is a separate Vite +
+Three.js workspace that builds the experimental version at `/beta/` — see
+`beta/PLAN.md`. The two share nothing but the repository and the deploy.
+
+Three routes on the main site, all statically rendered:
 
 | Route     | File                 |
 | --------- | -------------------- |
@@ -39,14 +43,37 @@ route files. Every visual token and responsive rule is in `app/globals.css`.
 events API for the "Last push" row and falls back to a plain profile link when
 that request fails or is rate limited.
 
+Two Cloudflare Workers back optional rows: `workers/now-playing` for the track
+on this site, and `workers/visits` for the boot counter on the beta rack. Both
+are configured by an environment variable and both simply do not render when it
+is unset, so neither is required for the site to build or deploy.
+
 The résumé PDF is generated from `resume-src/resume.html`; see the README in
 that directory. Edit the HTML and regenerate rather than replacing the PDF, and
 keep the filename `public/suvir-potdar-resume.pdf`.
 
+## The beta rack
+
+`beta/` is a server rack you can walk up to, power on and read: the same facts
+as this site, told by the machine instead of the page. Procedural geometry, no
+model files, no audio files, ~266 KB gzipped.
+
+```bash
+npm run dev:beta   # http://localhost:5173/beta/
+```
+
+It ships the whole of its content as plain HTML and only replaces that with the
+WebGL scene when it knows it can. Crawlers, browsers without WebGL, screen
+readers and anyone with reduced motion get a readable page.
+
+Nothing on the main site links to it.
+
 ## Publishing
 
-`npm run build` writes the static site to `out/`. Pushing to `main` runs
-`.github/workflows/pages.yml`, which builds and deploys that directory.
+`npm run build` runs `next build` and then the beta build, in that order — the
+Next export wipes `out/` first, so beta has to write into it afterwards.
+Pushing to `main` runs `.github/workflows/pages.yml`, which builds and deploys
+that directory.
 
 The custom domain comes from `public/CNAME`, which the export copies to
 `out/CNAME`. GitHub Pages must stay on the GitHub Actions publishing source.
